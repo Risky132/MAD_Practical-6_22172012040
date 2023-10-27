@@ -8,8 +8,8 @@ import android.os.IBinder
 class MyService : Service() {
     lateinit var player:MediaPlayer
     companion object{
-        val PLAYERKEY="service"
-        val PLAYERVALUE="play/pause"
+        val PLAYERKEY="Service"
+        val PLAYERVALUE="Play/Pause"
     }
 
     override fun onBind(intent: Intent): IBinder {
@@ -17,16 +17,21 @@ class MyService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        if(!this::player.isInitialized){
-            player=MediaPlayer.create(this,R.raw.song)
+        if(!this::player.isInitialized)
+        {
+            player = MediaPlayer.create(this,R.raw.song)
         }
-        if (intent!=null){
+        if(intent!=null)
+        {
             val datavalue=intent.getStringExtra(PLAYERKEY)
-            if(datavalue== PLAYERVALUE){
-                if(!player.isPlaying){
+            if(datavalue == PLAYERVALUE)
+            {
+                if(!player.isPlaying)
+                {
                     player.start()
                 }
-                else{
+                else
+                {
                     player.pause()
                 }
             }
@@ -38,8 +43,10 @@ class MyService : Service() {
         return START_STICKY
     }
 
-    override fun onDestroy() {
+    override fun onDestroy()
+    {
         player.stop()
         super.onDestroy()
+
     }
 }
